@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Korisnici{% endblock %}
+
+{% block body %}
+<h2>Korisnici</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Potvrđen</th>
+            <th>Admin</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td><a href="#" class="text-dark text-decoration-none">{{ user.email }}</a></td>
+            <td>{{ user.restaurant_name }}</td>
+            <td>{{ user.address }}</td>
+            <td>{{ 'Yes' if user.is_confirmed else 'No' }}</td>
+            <td>{{ 'Yes' if user.is_admin else 'No' }}</td>
+            <td>
+                <a href="{{ url_for('user_edit', user_id=user['_id']) }}" class="btn btn-primary btn-sm">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

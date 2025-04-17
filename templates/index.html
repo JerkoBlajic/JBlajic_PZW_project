@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Početna stranica{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style>
+        /* Add CSS to ensure consistent image dimensions */
+        .fixed-dimensions {
+            width: 300px; /* Set the desired width */
+            height: 200px; /* Set the desired height */
+            object-fit: cover; /* Ensures the image fits nicely within the dimensions */
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+<ul class="col-8 list-unstyled">
+    {% for post in posts %}
+    <li>
+        <h2><a href="{{ url_for('post_view', post_id=post['_id']) }}" class="text-dark text-decoration-none">{{ post.title }}</a></h2>
+        {% if post.image_id %}
+        <img src="{{ url_for('serve_image', image_id=post.image_id) }}" class="img-fluid fixed-dimensions" alt="Slika">
+        {% endif %}        
+        <p><strong>Restoran:</strong> {{ post.author }} - {{ post.date.strftime('%d.%m.%Y') }}</p>
+        <p>{{ post.content | markdown | safe }}</p>
+        <hr>
+    </li>
+    {% endfor %}    
+</ul>
+
+{% endblock %}

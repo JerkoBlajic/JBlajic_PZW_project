@@ -30,7 +30,8 @@
                     {% if current_user.is_authenticated %}
                     {{ render_nav_item('post_create', 'New food item', _use_li = True) }}
                     {{ render_nav_item('my_posts', "My food item's", _use_li = True) }}
-                    {%endif%}
+                    {{ render_nav_item('pin_view', 'Pinned dishes', _use_li = True) }}
+                    {% endif %}
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     {% if current_user.is_authenticated %}
@@ -57,7 +58,6 @@
                     {{ render_nav_item('login', 'Prijava', _use_li = True) }}
                     {{ render_nav_item('register', 'Registracija', _use_li = True) }}
                     {% endif %}
-                    </li>
                 </ul>
             </div>
         </nav>      

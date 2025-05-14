@@ -26,7 +26,7 @@ app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')
 
 bootstrap = Bootstrap5(app)
 client = MongoClient('mongodb://localhost:27017/')
-db = client['pzw_blog_database']
+db = client['pzw_blog_database_new']
 posts_collection = db['posts']
 users_collection = db['users']
 fs = gridfs.GridFS(db)
@@ -55,6 +55,7 @@ class User(UserMixin):
         self.address = user_data.get('address', '')
         self.admin = admin is True
         self.theme = theme
+        self.pinned_comments = user_data.get('pinned_comments', [])
 
     @classmethod
     def get(self_class, id):
@@ -353,9 +354,39 @@ def users():
     users = users_collection.find().sort("email")
     return render_template('users.html', users = users)
 
+@app.route('/pin_view')
+@login_required
+def pin_view():
+
+    user_data = users_collection.find_one({"email": current_user.get_id()})
+    pinned_dishes = []
+    if "pinned_dishes" in user_data:
+        pinned_dishes = list(posts_collection.find({"_id": {"$in": [ObjectId(post_id) for post_id in user_data["pinned_dishes"]]}}))
+    
+    return render_template('pin_view.html', posts=pinned_dishes)
+
+@app.route('/pin_dish/<post_id>', methods=['POST'])
+@login_required
+def pin_dish(post_id):
+   
+    user_data = users_collection.find_one({"email": current_user.get_id()})
+    if post_id in user_data.get("pinned_dishes", []):
+        
+        users_collection.update_one(
+            {"email": current_user.get_id()},
+            {"$pull": {"pinned_dishes": post_id}}
+        )
+        flash("Dish unpinned successfully!", "info")
+    else:
+        
+        users_collection.update_one(
+            {"email": current_user.get_id()},
+            {"$addToSet": {"pinned_dishes": post_id}}
+        )
+        flash("Dish pinned successfully!", "success")
+    return redirect(request.referrer)
+
 @app.errorhandler(403)
 def access_denied(e):
     return render_template('403.html', description=e.description), 403
-
-
 

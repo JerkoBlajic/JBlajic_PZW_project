@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email potvrda</title>
     <style>
-        /* General styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
@@ -44,7 +43,7 @@
             font-size: 12px;
             color: #6c757d;
         }
-        /* Fix for Outlook */
+        
         img {
             border: none;
             display: block;
@@ -57,7 +56,7 @@
     <table width="100%" bgcolor="#f8f9fa" cellpadding="0" cellspacing="0">
         <tr>
             <td>
-                <!-- Start Container -->
+                
                 <table class="container" align="center" width="600" cellpadding="0" cellspacing="0">
                     <tr>
                         <td>
@@ -65,7 +64,7 @@
                             <p>Poštovani {{ user_email }},</p>
                             <p>Zahvaljujemo na registraciji. Da biste potvrdili svoju prijavu, molimo kliknite na slijedeći link:</p>
         
-                            <!-- Button Section -->
+                           
                             <table width="100%" cellpadding="0" cellspacing="0" style="margin: 20px 0;">
                                 <tr>
                                     <td align="center">
@@ -76,17 +75,17 @@
                             
                             <p>Ako niste kreirali ovaj račun, možete ignorirati ovaj email.</p>
         
-                            <p>Srdačan pozdrav,<br>Vaš FlaskBlog.</p>
+                            <p>Srdačan pozdrav,<br>Vaš Food Scout.</p>
                         </td>
                     </tr>
-                    <!-- Footer -->
+                  
                     <tr>
                         <td class="footer">
-                            <p>&copy; {{ current_year }} FlaskBlog. Sva prava pridržana.</p>
+                            <p>&copy; {{ current_year }} Food Scout. Sva prava pridržana.</p>
                         </td>
                     </tr>
                 </table>
-                <!-- End Container -->
+            
             </td>
         </tr>
     </table>

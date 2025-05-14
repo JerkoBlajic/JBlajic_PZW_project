@@ -5,17 +5,17 @@ from datetime import datetime
 from flask_wtf.file import FileAllowed
 
 class FoodPostForm(FlaskForm):
-    title = StringField('Dish Name', validators=[DataRequired(), Length(min=5, max=100)])  # Capitalized 'Name'
-    content = TextAreaField('Dish Description', render_kw={"id": "markdown-editor"})  # Capitalized 'Description'
+    title = StringField('Dish Name', validators=[DataRequired(), Length(min=5, max=100)])
+    content = TextAreaField('Dish Description', render_kw={"id": "markdown-editor"})
     date = DateField('Date', default=datetime.today)
-    status = RadioField('Status', choices=[('draft', 'Draft'), ('published', 'Published')], default='draft')  # Corrected 'Skica' and 'Objavljeno' to English
-    image = FileField('Food Image', validators=[DataRequired(), FileAllowed(['jpg', 'png', 'jpeg'], 'Only images are allowed!')])  # Corrected 'Samo slike!'
+    status = RadioField('Status', choices=[('draft', 'Draft'), ('published', 'Published')], default='draft') 
+    image = FileField('Food Image', validators=[DataRequired(), FileAllowed(['jpg', 'png', 'jpeg'], 'Only images are allowed!')])
     submit = SubmitField('Submit')
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])  # Changed 'E-mail' to 'Email' for consistency
+    email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Stay Logged In')  # Capitalized 'Logged In'
+    remember_me = BooleanField('Stay Logged In')
     submit = SubmitField('Login')
 
 class RegisterForm(FlaskForm):
